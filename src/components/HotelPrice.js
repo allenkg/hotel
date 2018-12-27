@@ -48,7 +48,7 @@ const HotelPrice = ({classes, price }) => {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <CustomTableCell>Location</CustomTableCell>
+            <CustomTableCell>Accommodation</CustomTableCell>
             <CustomTableCell align="right">Price</CustomTableCell>
           </TableRow>
         </TableHead>
