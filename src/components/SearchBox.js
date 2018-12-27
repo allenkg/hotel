@@ -12,10 +12,7 @@ const styles = theme => ({
   search: {
     position: 'relative',
     width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginTop: theme.spacing.unit,
-      width: 'auto',
-    },
+    right: 5
   },
   searchIcon: {
     width: theme.spacing.unit * 6,

@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Typography, Modal, Grid, CardMedia, Card, Divider, CardContent } from '@material-ui/core';
 import HotelRaiting from "./HotelRaiting";
 import HotelPrice from "./HotelPrice";
-
+import { divider } from "./FilterPanel";
 
 function getModalStyle() {
   return {
@@ -32,9 +32,6 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
-  },
-  divider: {
-    padding: 10
   }
 });
 
@@ -73,15 +70,11 @@ const HotelDetailModal = ({ classes, handleClose, hotel, open }) => {
               <Typography variant="subheading" gutterBottom>
                 Address: {hotel.address}
               </Typography>
-              <div className={classes.divider}>
-                <Divider variant="middle"/>
-              </div>
+              { divider('middle') }
               <Typography variant="subheading" gutterBottom>
                 Raiting: <HotelRaiting rate={rate}/>
               </Typography>
-              <div className={classes.divider}>
-                <Divider variant="middle"/>
-              </div>
+              { divider('middle') }
               <Typography variant="subheading" gutterBottom>
                 Description
               </Typography>

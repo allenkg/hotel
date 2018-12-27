@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { FormControlLabel, Divider, Typography } from '@material-ui/core';
 import StarRatings from 'react-star-ratings';
-import Typography from '@material-ui/core/Typography';
 
 
 const FilterPanel = ({ sortBy, resetFilters }) => {
@@ -44,7 +43,7 @@ const FilterPanel = ({ sortBy, resetFilters }) => {
           name='rating'
         />
       </div>
-      <hr/>
+      {divider('fullWidth')}
       <Typography component="h1" variant="title">
         Options
       </Typography>
@@ -59,7 +58,7 @@ const FilterPanel = ({ sortBy, resetFilters }) => {
         }
         label="Swimming pool"
       />
-      <hr/>
+      {divider('fullWidth')}
     </React.Fragment>
   )
 };
@@ -68,6 +67,12 @@ FilterPanel.propTypes = {
   sortBy: PropTypes.func,
   resetFilters: PropTypes.bool,
 };
+
+export const divider = (value) => (
+  <div style={{padding: '10px'}}>
+    <Divider variant={value}/>
+  </div>
+);
 
 export default FilterPanel
 
