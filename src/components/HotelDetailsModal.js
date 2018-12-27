@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Modal from '@material-ui/core/Modal';
-import Grid from '@material-ui/core/Grid';
-import CardMedia from '@material-ui/core/CardMedia';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import { Typography, Modal, Grid, CardMedia, Card, Divider, CardContent } from '@material-ui/core';
 import HotelRaiting from "./HotelRaiting";
 import HotelPrice from "./HotelPrice";
 
@@ -38,6 +33,9 @@ const styles = theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
   },
+  divider: {
+    padding: 10
+  }
 });
 
 const HotelDetailModal = ({ classes, handleClose, hotel, open }) => {
@@ -72,11 +70,19 @@ const HotelDetailModal = ({ classes, handleClose, hotel, open }) => {
               </Card>
             </Grid>
             <Grid item xs={6}>
-              <Typography component="h6">
-                {hotel.address}
+              <Typography variant="subheading" gutterBottom>
+                Address: {hotel.address}
               </Typography>
-              <HotelRaiting rate={rate}/>
-              <Typography variant="subtitle1" id="simple-modal-description">
+              <div className={classes.divider}>
+                <Divider variant="middle"/>
+              </div>
+              <Typography variant="subheading" gutterBottom>
+                Raiting: <HotelRaiting rate={rate}/>
+              </Typography>
+              <div className={classes.divider}>
+                <Divider variant="middle"/>
+              </div>
+              <Typography variant="subheading" gutterBottom>
                 Description
               </Typography>
               <Typography component='p'>
