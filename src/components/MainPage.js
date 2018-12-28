@@ -7,7 +7,7 @@ import HotelCard from './HotelCard';
 import { withStyles } from '@material-ui/core/styles';
 import {
   CssBaseline, CircularProgress, Grid, AppBar, Divider,
-  Drawer, Hidden, IconButton, Toolbar, Button
+  Drawer, Hidden, IconButton, Toolbar
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 

@@ -1,4 +1,4 @@
-import React,  { useState, useEffect } from 'react';
+import React,  { useState } from 'react';
 import PropTypes from 'prop-types';
 import SearchIcon from '@material-ui/icons/Search';
 import { withStyles } from '@material-ui/core/styles';
@@ -46,7 +46,7 @@ const styles = theme => ({
 });
 
 const SearchBox = (props) => {
-  const { classes, resetFilters, activeFilters, setFilter } = props;
+  const { classes, activeFilters, setFilter } = props;
   let initialSearchTxt = "";
   const [searchTxt, setSearchTxt] = useState(initialSearchTxt);
 
@@ -57,11 +57,6 @@ const SearchBox = (props) => {
     setSearchTxt(searchQuery);
     props.searchHandler();
   };
-
-  useEffect(() => {
-    if (resetFilters)
-      setSearchTxt(initialSearchTxt);
-  });
 
   return (
     <React.Fragment>
@@ -90,7 +85,6 @@ const SearchBox = (props) => {
 
 SearchBox.PropTypes = {
   searchHandler: PropTypes.func,
-  resetFilters: PropTypes.bool,
   classes: PropTypes.object.isRequired,
   activeFilters: PropTypes.object,
   setFilter: PropTypes.func,

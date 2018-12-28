@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from '@material-ui/core/Checkbox';
 import { FormControlLabel, Divider, Typography } from '@material-ui/core';
 import StarRatings from 'react-star-ratings';
 
 
-const FilterPanel = ({ sortBy, resetFilters, setFilter, filterQty, activeFilters }) => {
+const FilterPanel = ({ sortBy, setFilter, activeFilters }) => {
   const [star, setStar] = useState(1);
   const [hasPool, setPool] = useState(false);
 
@@ -30,13 +30,6 @@ const FilterPanel = ({ sortBy, resetFilters, setFilter, filterQty, activeFilters
     setPool(checked);
     sortBy()
   };
-
-  useEffect(() => {
-    if (resetFilters) {
-      setStar(1);
-      setPool(false)
-    }
-  });
 
 
   return (
@@ -78,8 +71,6 @@ const FilterPanel = ({ sortBy, resetFilters, setFilter, filterQty, activeFilters
 FilterPanel.propTypes = {
   sortBy: PropTypes.func,
   setFilter: PropTypes.func,
-  filterQty: PropTypes.number,
-  resetFilters: PropTypes.bool,
   activeFilters: PropTypes.object,
 };
 
