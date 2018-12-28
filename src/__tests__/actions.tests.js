@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { FETCH_HOTELS, FETCH_HOTELS_FAILURE, FETCH_HOTELS_SUCCESS } from "../actions/main-page";
+import { FETCH_HOTELS, FETCH_HOTELS_FAILURE, FETCH_HOTELS_SUCCESS, SET_FILTER } from "../actions/main-page";
 import mainPageActions from "../actions/main-page";
 
 const middlewares = [thunk];
@@ -24,5 +24,16 @@ describe('Main Page Actions __tests__', function () {
       const actions = store.getActions();
       expect(actions).toEqual(expectedActions);
     })
+  });
+
+  it('should return SET_FILTER when dispatch setFilter', function () {
+    const filters = { star: 2 };
+    const expectedActions = [
+      { type: SET_FILTER, filters }
+    ];
+
+    const store = mockStore({});
+    store.dispatch(mainPageActions.setFilter(filters));
+    expect(store.getActions()).toEqual(expectedActions);
   });
 });

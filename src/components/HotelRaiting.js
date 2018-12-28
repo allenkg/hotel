@@ -12,7 +12,7 @@ const HotelRaiting = ({rate}) => {
   );
 }
 
-HotelRaiting.PropTypes = {
+HotelRaiting.propTypes = {
   rate: PropTypes.number.isRequired
 }
 

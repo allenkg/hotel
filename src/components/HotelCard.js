@@ -51,7 +51,7 @@ const HotelCard = (props) => {
 
   return (
 
-    <React.Fragment>
+    <div id="hotel-card">
       <Card className={classes.card}>
         <CardMedia
           className={classes.media}
@@ -89,11 +89,11 @@ const HotelCard = (props) => {
         open={showModal}
         hotel={hotel}
         handleClose={handleButtonClick}/>
-    </React.Fragment>
+    </div>
   );
 };
 
-HotelCard.PropTypes = {
+HotelCard.propTypes = {
   hotel: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };

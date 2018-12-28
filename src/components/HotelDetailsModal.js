@@ -90,7 +90,7 @@ const HotelDetailModal = ({ classes, handleClose, hotel, open }) => {
   );
 };
 
-HotelDetailModal.PropTypes = {
+HotelDetailModal.propTypes = {
   classes: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,
   hotel: PropTypes.object.isRequired,

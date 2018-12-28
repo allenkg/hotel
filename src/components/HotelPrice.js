@@ -42,7 +42,7 @@ const HotelPrice = ({ classes, price }) => {
   ];
 
   return (
-    <div>
+    <div id='hotel-price'>
       <Paper className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
@@ -69,7 +69,7 @@ const HotelPrice = ({ classes, price }) => {
   );
 };
 
-HotelPrice.PropTypes = {
+HotelPrice.propTypes = {
   price: PropTypes.object.isRequired
 };
 
