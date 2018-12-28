@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 const Hotels = (props) => {
-  const { hotels } = props;
   return (
     <div>
       { props.children }

@@ -1,9 +1,7 @@
 import React,  { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
 import { withStyles } from '@material-ui/core/styles';
-import { fade } from '@material-ui/core/styles/colorManipulator';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
@@ -48,13 +46,16 @@ const styles = theme => ({
 });
 
 const SearchBox = (props) => {
-  const { classes, resetFilters } = props;
+  const { classes, resetFilters, activeFilters, setFilter } = props;
   let initialSearchTxt = "";
   const [searchTxt, setSearchTxt] = useState(initialSearchTxt);
 
   const handleChangeSearchTtx = (e) => {
-    setSearchTxt(e.target.value);
-    props.searchHandler(e.target.value, 'name');
+    let searchQuery = e.target.value;
+    activeFilters.searchQuery = searchQuery;
+    setFilter(activeFilters);
+    setSearchTxt(searchQuery);
+    props.searchHandler();
   };
 
   useEffect(() => {
@@ -91,6 +92,8 @@ SearchBox.PropTypes = {
   searchHandler: PropTypes.func,
   resetFilters: PropTypes.bool,
   classes: PropTypes.object.isRequired,
+  activeFilters: PropTypes.object,
+  setFilter: PropTypes.func,
 };
 
 export default withStyles(styles)(SearchBox)

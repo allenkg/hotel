@@ -5,18 +5,30 @@ import { FormControlLabel, Divider, Typography } from '@material-ui/core';
 import StarRatings from 'react-star-ratings';
 
 
-const FilterPanel = ({ sortBy, resetFilters }) => {
+const FilterPanel = ({ sortBy, resetFilters, setFilter, filterQty, activeFilters }) => {
   const [star, setStar] = useState(1);
   const [hasPool, setPool] = useState(false);
 
+  const setActiveFilters = (value, filterKey) => {
+    activeFilters[filterKey] = value;
+    setFilter(activeFilters);
+  };
+
   const filterByStarHandler = (newRating, name) => {
+    setActiveFilters(newRating, 'star');
     setStar(newRating);
-    sortBy(newRating, 'rate')
+    sortBy();
   };
 
   const handleChange = name => event => {
-    setPool(event.target.checked);
-    sortBy(event.target.checked, 'hasPool')
+    let checked = event.target.checked;
+    if (checked)
+      setActiveFilters(checked, 'pool');
+    else {
+      setActiveFilters(null, 'pool');
+    }
+    setPool(checked);
+    sortBy()
   };
 
   useEffect(() => {
@@ -52,7 +64,7 @@ const FilterPanel = ({ sortBy, resetFilters }) => {
           <Checkbox
             checked={hasPool}
             onChange={handleChange('hasPool')}
-            value={hasPool}
+            value={'hasPool'}
             color="primary"
           />
         }
@@ -65,7 +77,10 @@ const FilterPanel = ({ sortBy, resetFilters }) => {
 
 FilterPanel.propTypes = {
   sortBy: PropTypes.func,
+  setFilter: PropTypes.func,
+  filterQty: PropTypes.number,
   resetFilters: PropTypes.bool,
+  activeFilters: PropTypes.object,
 };
 
 export const divider = (value) => (

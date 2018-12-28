@@ -54,19 +54,20 @@ class MainPage extends React.Component {
       hotels: [],
       mobileOpen: false,
       hasFiltered: false,
-      resetFilters: false,
     }
   }
 
   static propTypes = {
     classes: PropTypes.object.isRequired,
+    activeFilters: PropTypes.object.isRequired,
     container: PropTypes.object,
     theme: PropTypes.object.isRequired,
     isLoading: PropTypes.bool.isRequired,
     hotels: PropTypes.array.isRequired,
-    filterItems: PropTypes.array.isRequired,
+    filterQty: PropTypes.number.isRequired,
     actions: PropTypes.shape({
-      fetchHotels: PropTypes.func
+      fetchHotels: PropTypes.func,
+      setFilter: PropTypes.func,
     }.isRequired)
   };
 
@@ -78,26 +79,44 @@ class MainPage extends React.Component {
     })
   }
 
-  searchHandler = (value, key) => {
-    const { hotels } = this.state;
-    const filteredHotels = hotels.reduce((acc, hotel) => {
-      if (key === 'name') {
-        if (hotel[key].includes(value))
-          acc.push(hotel)
-      } else if (key === 'rate') {
-        if (hotel[key] >= value)
-          acc.push(hotel)
-      } else {
-        if (hotel[key] === 'true')
-          acc.push(hotel)
-      }
+  sortedByPool = (hotels) => {
+    return hotels.reduce((acc, hotel) => {
+      if (hotel.hasPool === 'true')
+        acc.push(hotel)
       return acc
     }, []);
-    this.setState({ hotels: filteredHotels, hasFiltered: true, resetFilters: false })
   };
 
-  resetSearchResult = () => {
-    this.setState({ hotels: this.props.hotels, resetFilters: true })
+  sortedByRate = (hotels, rate) => {
+    return hotels.reduce((acc, hotel) => {
+      if (hotel.rate >= rate)
+        acc.push(hotel);
+      return acc
+    }, []);
+  };
+
+  sortByQuery = (hotels, searchQuery) => {
+    return hotels.reduce((acc, hotel) => {
+      if (hotel.name.includes(searchQuery))
+        acc.push(hotel);
+      return acc
+    }, []);
+  };
+
+  searchHandler = () => {
+    const { hotels, activeFilters } = this.props;
+    let result = [];
+    if (!!activeFilters.pool) {
+      result = this.sortedByPool(hotels);
+    }
+    let filteredHotels = result.length > 0 ? result : hotels;
+    if (!!activeFilters.star) {
+      result = this.sortedByRate(filteredHotels, activeFilters.star)
+    }
+    result = result.length > 0 ? result : hotels;
+    if (!!activeFilters.searchQuery)
+      result = this.sortByQuery(result, activeFilters.searchQuery);
+    this.setState({ hotels: result, hasFiltered: true, resetFilters: false })
   };
 
   handleDrawerToggle = () => {
@@ -106,8 +125,8 @@ class MainPage extends React.Component {
 
 
   render() {
-    const { hotels, resetFilters } = this.state;
-    const { isLoading, classes, theme } = this.props;
+    const { hotels } = this.state;
+    const { isLoading, classes, theme, actions, activeFilters } = this.props;
 
     if (isLoading) {
       return (
@@ -124,12 +143,14 @@ class MainPage extends React.Component {
         <div className={classes.content}>
           <FilterPanel
             sortBy={this.searchHandler.bind(this)}
-            resetFilters={resetFilters}
+            setFilter={actions.setFilter}
+            activeFilters={activeFilters}
           />
-          <SearchBox searchHandler={this.searchHandler.bind(this)} resetFilters={resetFilters}/>
-          <Button variant="outlined" size="small" color="default" className={classes.margin} onClick={this.resetSearchResult}>
-            Clear Filters
-          </Button>
+          <SearchBox
+            searchHandler={this.searchHandler.bind(this)}
+            activeFilters={activeFilters}
+            setFilter={actions.setFilter}
+          />
         </div>
       </div>
     );

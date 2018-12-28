@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Typography, Modal, Grid, CardMedia, Card, Divider, CardContent } from '@material-ui/core';
+import { Typography, Modal, Grid, CardMedia, Card, CardContent } from '@material-ui/core';
 import HotelRaiting from "./HotelRaiting";
 import HotelPrice from "./HotelPrice";
 import { divider } from "./FilterPanel";
@@ -61,9 +61,6 @@ const HotelDetailModal = ({ classes, handleClose, hotel, open }) => {
                   image={hotel.img}
                   title={hotel.name}
                 />
-                <CardContent className={classes.content}>
-
-                </CardContent>
               </Card>
             </Grid>
             <Grid item xs={6}>
@@ -81,6 +78,9 @@ const HotelDetailModal = ({ classes, handleClose, hotel, open }) => {
               <Typography component='p'>
                 {hotel.description}
               </Typography>
+              <div className={classes.content}>
+                {hotel.hasPool}
+              </div>
               <HotelPrice price={hotel.price}/>
             </Grid>
           </Grid>
